@@ -4,6 +4,10 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistPixelSquare, GeistPixelGrid, GeistPixelCircle, GeistPixelTriangle, GeistPixelLine } from 'geist/font/pixel';
 
 import "./globals.css";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "King Amato - Software Developer & Web Developer",
@@ -18,7 +22,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.className} ${GeistMono.className} ${GeistPixelSquare.className} h-full antialiased`}
+      className={cn("h-full", "antialiased", GeistSans.className, GeistMono.className, GeistPixelSquare.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
