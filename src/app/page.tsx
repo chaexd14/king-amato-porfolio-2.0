@@ -12,7 +12,7 @@ export default function Home() {
           <header className="flex items-center justify-between w-full mb-2">
             <Link
               href="/"
-              className={` ${buttonVariants({ variant: "ghost"})}`}
+              className={`pl-0 pr-0 ${buttonVariants({ variant: "ghost"})}`}
             >
               {"<Chae />"}
             </Link>
@@ -21,7 +21,7 @@ export default function Home() {
               href="https://kingamato.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`text-text-muted ${buttonVariants({ variant: "ghost", size: "sm" })}`}
+              className={`text-text-muted pl-0 pr-0 ${buttonVariants({ variant: "ghost", size: "sm" })}`}
             >
               My Old Portfolio
               <MoveUpRight />

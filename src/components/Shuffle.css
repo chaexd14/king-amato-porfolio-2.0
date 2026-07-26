@@ -4,7 +4,7 @@
   word-wrap: break-word;
   will-change: transform;
   line-height: 1;
-  font-size: 2rem;
+  font-size: 1rem;
   font-family: var(--font-pixel);
   font-weight: 600;
   text-transform: uppercase;
@@ -31,4 +31,10 @@
   line-height: 1;
   display: inline-block;
   text-align: center;
+}
+
+@media (min-width: 640px) {
+  .shuffle-parent {
+    font-size: 2rem;
+  }
 }
