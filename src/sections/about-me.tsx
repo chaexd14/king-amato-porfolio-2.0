@@ -25,6 +25,10 @@ export default function AboutMe() {
             triggerOnce={true}
             triggerOnHover
             respectReducedMotion={true}
+            // required props
+            onShuffleComplete={() => {}}
+            colorFrom="#ffffff"
+            colorTo="#111827"
             textAlign="left"
             loop
             loopDelay={5}
