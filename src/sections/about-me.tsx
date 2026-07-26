@@ -9,7 +9,7 @@ import { Heart } from 'lucide-react';
 
 export default function AboutMe() {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full border-t- border-border px-4 pt-3 sm:px-0 sm:pt-3">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full border-t border-border px-4 pt-3 sm:px-0 sm:pt-3">
       <Image src="/king-amato.jpg" alt="King Amato" width={180} height={180} />
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
