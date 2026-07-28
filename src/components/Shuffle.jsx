@@ -41,6 +41,11 @@ const Shuffle = ({
   const tlRef = useRef(null);
   const playingRef = useRef(false);
   const hoverHandlerRef = useRef(null);
+  const onShuffleCompleteRef = useRef(onShuffleComplete);
+
+  useEffect(() => {
+    onShuffleCompleteRef.current = onShuffleComplete;
+  }, [onShuffleComplete]);
 
   useEffect(() => {
     if ('fonts' in document) {
@@ -259,14 +264,14 @@ const Shuffle = ({
             } else {
               gsap.set(strips, { x: (i, t) => parseFloat(t.getAttribute('data-start-x') || '0') });
             }
-            onShuffleComplete?.();
+            onShuffleCompleteRef.current?.();
           },
           onComplete: () => {
             playingRef.current = false;
             if (!loop) {
               cleanupToStill();
               if (colorTo) gsap.set(strips, { color: colorTo });
-              onShuffleComplete?.();
+              onShuffleCompleteRef.current?.();
               armHover();
             }
           }
@@ -374,8 +379,7 @@ const Shuffle = ({
         colorTo,
         triggerOnce,
         respectReducedMotion,
-        triggerOnHover,
-        onShuffleComplete
+        triggerOnHover
       ],
       scope: ref
     }
