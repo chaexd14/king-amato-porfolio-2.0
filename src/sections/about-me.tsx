@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
 import Shuffle from "@/components/Shuffle";
 import { MoveUpRight } from "lucide-react";
@@ -16,43 +16,51 @@ export default function AboutMe() {
     setIsHeartClicked(true);
   };
 
+  React.useEffect(() => {
+    const preloadGif = new window.Image();
+    preloadGif.src = "/king-amato-gif.gif";
+  }, []);
+
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const handleGifClick = () => {
-    // Show the GIF
     setIsGif(true);
-
-    // Force React to remount the image, restarting the GIF
     setGifKey((prev) => prev + 1);
 
-    // Reset the timer
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
 
     timeoutRef.current = setTimeout(() => {
       setIsGif(false);
-    }, 1200); // Hide after 1.2s of no clicks
+    }, 1200);
+  };
+
+  const handleActionClick = () => {
+    handleHeartClick();
+    handleGifClick();
   };
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full border-t border-border px-4 pt-3 sm:px-0 sm:pt-3">
-      {isGif ? (
-        <Image
-          key={gifKey}
-          src="/king-amato-gif.gif"
-          alt="King Amato"
-          width={180}
-          height={180}
-          unoptimized
-          className="border border-red-400 shadow-lg shadow-red-400/50"
-        />
-      ) : (
-        <Image
-          src="/king-amato.jpg"
-          alt="King Amato"
-          width={180}
-          height={180}
-        />
-      )}
+        {isGif ? (
+          <img
+            key={gifKey}
+            src="/king-amato-gif.gif"
+            alt="King Amato"
+            height={180}
+            width={180}
+            className="border border-red-500 shadow-xl shadow-red-500/80"
+          />
+        ) : (
+          <NextImage
+            src="/king-amato.jpg"
+            alt="King Amato"
+            height={180}
+            width={180}
+          />
+        )}
+
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           <Shuffle
@@ -87,7 +95,7 @@ export default function AboutMe() {
           </p>
         </div>
         <div className="flex flex-row gap-2">
-          <Button onClick={() => (handleGifClick(), handleHeartClick())}>
+          <Button onClick={handleActionClick}>
             Hi! <Heart fill={isHeartClicked ? "currentColor" : "none"} />
           </Button>
           <a href="/KING-AMATO-CV.pdf" download>
