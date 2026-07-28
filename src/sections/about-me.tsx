@@ -16,7 +16,7 @@ export default function AboutMe() {
     setIsHeartClicked(true);
   };
 
-  const timeoutRef = React.useRef(null);
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const handleGifClick = () => {
     // Show the GIF
@@ -26,7 +26,7 @@ export default function AboutMe() {
     setGifKey((prev) => prev + 1);
 
     // Reset the timer
-    clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
       setIsGif(false);
@@ -90,10 +90,12 @@ export default function AboutMe() {
           <Button onClick={() => (handleGifClick(), handleHeartClick())}>
             Hi! <Heart fill={isHeartClicked ? "currentColor" : "none"} />
           </Button>
-          <Button variant="outline" className="bg-middleground">
-            Read my CV
-            <MoveUpRight />
-          </Button>
+          <a href="/KING-AMATO-CV.pdf" download>
+            <Button variant="outline" className="bg-middleground">
+              Read my CV
+              <MoveUpRight />
+            </Button>
+          </a>
         </div>
       </div>
     </div>
