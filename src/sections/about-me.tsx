@@ -4,13 +4,55 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Shuffle from "@/components/Shuffle";
-import { MoveUpRight } from 'lucide-react';
-import { Heart } from 'lucide-react';
+import { MoveUpRight } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export default function AboutMe() {
+  const [isHeartClicked, setIsHeartClicked] = React.useState(false);
+  const [isGif, setIsGif] = React.useState(false);
+  const [gifKey, setGifKey] = React.useState(0);
+
+  const handleHeartClick = () => {
+    setIsHeartClicked(true);
+  };
+
+  const timeoutRef = React.useRef(null);
+
+  const handleGifClick = () => {
+    // Show the GIF
+    setIsGif(true);
+
+    // Force React to remount the image, restarting the GIF
+    setGifKey((prev) => prev + 1);
+
+    // Reset the timer
+    clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      setIsGif(false);
+    }, 1200); // Hide after 1.2s of no clicks
+  };
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full border-t border-border px-4 pt-3 sm:px-0 sm:pt-3">
-      <Image src="/king-amato.jpg" alt="King Amato" width={180} height={180} />
+      {isGif ? (
+        <Image
+          key={gifKey}
+          src="/king-amato-gif.gif"
+          alt="King Amato"
+          width={180}
+          height={180}
+          unoptimized
+          className="border border-red-400 shadow-lg shadow-red-400/50"
+        />
+      ) : (
+        <Image
+          src="/king-amato.jpg"
+          alt="King Amato"
+          width={180}
+          height={180}
+        />
+      )}
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           <Shuffle
@@ -39,13 +81,15 @@ export default function AboutMe() {
             successful software engineer.
           </p>
           <p className="leading-6 text-sm text-text-muted">
-            When I’m not working on tech projects,
-            you’ll find me Gaming, Drawing, Crafting or Riding my Motorcycle as
-            I blend creativity with code to make a difference.
+            When I’m not working on tech projects, you’ll find me Gaming,
+            Drawing, Crafting or Riding my Motorcycle as I blend creativity with
+            code to make a difference.
           </p>
         </div>
         <div className="flex flex-row gap-2">
-          <Button>Hi! <Heart /></Button>
+          <Button onClick={() => (handleGifClick(), handleHeartClick())}>
+            Hi! <Heart fill={isHeartClicked ? "currentColor" : "none"} />
+          </Button>
           <Button variant="outline" className="bg-middleground">
             Read my CV
             <MoveUpRight />
