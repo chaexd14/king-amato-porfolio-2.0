@@ -3,6 +3,7 @@ import Image from "next/image";
 // Sections
 import AboutMe from "@/sections/about-me";
 import Experiences from "@/sections/experiences";
+import Projects from "@/sections/projects";
 
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -35,6 +36,7 @@ export default function Home() {
           <section className="flex flex-col gap-10 w-full">
             <AboutMe />
             <Experiences />
+            <Projects />
           </section>
         </div>
       </div>
