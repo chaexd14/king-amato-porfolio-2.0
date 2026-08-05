@@ -41,8 +41,7 @@ export default function Projects() {
   ]
 
   return (
-
-    <div className="flex flex-col gap-2 px-6 sm:px-0">
+    <div className="flex flex-col gap-3 px-6 sm:px-0">
       <h3 className="text-text-muted border-b border-border pb-2 text-sm">
         Projects
       </h3>
@@ -66,6 +65,5 @@ export default function Projects() {
 
 
     </div>
-
   )
 }

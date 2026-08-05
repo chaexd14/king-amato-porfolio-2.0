@@ -4,6 +4,7 @@ import Image from "next/image";
 import AboutMe from "@/sections/about-me";
 import Experiences from "@/sections/experiences";
 import Projects from "@/sections/projects";
+import TechStack from "@/sections/tech-stack";
 
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -37,6 +38,7 @@ export default function Home() {
             <AboutMe />
             <Experiences />
             <Projects />
+            <TechStack />
           </section>
         </div>
       </div>
