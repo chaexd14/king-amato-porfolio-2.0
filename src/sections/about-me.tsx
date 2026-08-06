@@ -43,7 +43,7 @@ export default function AboutMe() {
 
   return (
     <div className="w-full px-6 sm:px-0">
-      <div className="flex flex-col md:flex-row items-center justify-center gap-4 border-t border-border pt-[18px]">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 pt-[18px]">
         {isGif ? (
           <img
             key={gifKey}
@@ -77,7 +77,7 @@ export default function AboutMe() {
               triggerOnHover
               respectReducedMotion={true}
               // required props
-              onShuffleComplete={() => {}}
+              onShuffleComplete={() => { }}
               colorFrom="#111827"
               colorTo="#0c0a09"
               textAlign="left"

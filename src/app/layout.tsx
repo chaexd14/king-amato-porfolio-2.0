@@ -6,8 +6,11 @@ import { GeistPixelSquare, GeistPixelGrid, GeistPixelCircle, GeistPixelTriangle,
 import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { MoveUpRight } from "lucide-react";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: "King Amato - Software Developer & Web Developer",
@@ -24,7 +27,35 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", GeistSans.className, GeistMono.className, GeistPixelSquare.variable, "font-sans", geist.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+
+      <body className="flex flex-1 justify-center w-full">
+        <div className="w-full max-w-3xl flex flex-col pt-2 px-1 sm:px-0">
+          <header className="flex items-center justify-between w-full mb-2 px-6 pt-3 border-b border-border sm:px-0">
+            <Link
+              href="/"
+              className={`pl-0 pr-0 ${buttonVariants({ variant: "ghost" })}`}
+            >
+              {"<Chae />"}
+            </Link>
+
+            <a
+              href="https://kingamato.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-text-muted pl-0 pr-0 ${buttonVariants({ variant: "ghost", size: "sm" })}`}
+            >
+              My Old Portfolio
+              <MoveUpRight />
+            </a>
+          </header>
+          {children}
+          <footer className="flex items-center justify-center w-full mb-2 px-6 pt-3 border-t border-border sm:px-0">
+            <p className="text-sm leading-6 text-text-muted">
+              © 2026 King Amato. All rights reserved.
+            </p>
+          </footer>
+        </div>
+      </body>
     </html>
   );
 }
