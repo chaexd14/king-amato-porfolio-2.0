@@ -4,8 +4,19 @@ import ProjectCard from '@/components/common/project-card'
 
 import { Button } from "@/components/ui/button";
 
+// Module-level variable to retain expanded count during SPA page transitions
+let cachedVisibleCount = 2;
+
 export default function Projects() {
-  const [visibleCount, setVisibleCount] = useState(2);
+  const [visibleCount, setVisibleCount] = useState(cachedVisibleCount);
+
+  const handleViewMore = () => {
+    setVisibleCount((prev) => {
+      const nextCount = prev + 2;
+      cachedVisibleCount = nextCount;
+      return nextCount;
+    });
+  };
 
   const project = [
     {
@@ -56,7 +67,7 @@ export default function Projects() {
       </div>
       {visibleCount < project.length && (
         <Button
-          onClick={() => setVisibleCount((prev) => prev + 2)}
+          onClick={handleViewMore}
           variant="outline"
         >
           View More

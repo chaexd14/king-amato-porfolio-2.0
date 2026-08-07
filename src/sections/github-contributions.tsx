@@ -10,16 +10,39 @@ interface GithubContributionsProps {
   username?: string;
 }
 
+// Module-level cache to persist data during client-side navigation
+const cache: Record<string, Activity[]> = {};
+
 export default function GithubContributions({
   username = "chaexd14",
 }: GithubContributionsProps) {
+  const cacheKey = `github_contributions_${username}`;
+
   const [data, setData] = useState<Activity[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
-    setLoading(true);
+
+    // Check cache after component mounts on client to avoid hydration mismatch
+    let cachedData: Activity[] | null = cache[username] || null;
+    if (!cachedData && typeof window !== "undefined") {
+      const saved = sessionStorage.getItem(cacheKey);
+      if (saved) {
+        try {
+          cachedData = JSON.parse(saved);
+          if (cachedData) cache[username] = cachedData;
+        } catch (e) {}
+      }
+    }
+
+    if (cachedData && cachedData.length > 0) {
+      setData(cachedData);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
     setError(false);
 
     fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`)
@@ -29,13 +52,17 @@ export default function GithubContributions({
       })
       .then((json) => {
         if (isMounted && json.contributions) {
+          cache[username] = json.contributions;
+          if (typeof window !== "undefined") {
+            sessionStorage.setItem(cacheKey, JSON.stringify(json.contributions));
+          }
           setData(json.contributions);
           setLoading(false);
         }
       })
       .catch((err) => {
         console.error(err);
-        if (isMounted) {
+        if (isMounted && (!cachedData || cachedData.length === 0)) {
           setError(true);
           setLoading(false);
         }

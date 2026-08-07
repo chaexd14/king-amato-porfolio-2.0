@@ -35,6 +35,7 @@ export default function page() {
 
         <Link
           href="/"
+          scroll={false}
           className={`text-text-muted pl-0 pr-0 ${buttonVariants({ variant: "ghost", size: "sm" })}`}
         >
           <MoveLeft />
