@@ -7,6 +7,8 @@ import Shuffle from "@/components/Shuffle";
 import { MoveUpRight } from "lucide-react";
 import { Heart } from "lucide-react";
 
+import EmailForm from "@/components/email/email-form";
+
 export default function AboutMe() {
   const [isHeartClicked, setIsHeartClicked] = React.useState(false);
   const [isGif, setIsGif] = React.useState(false);
@@ -105,6 +107,7 @@ export default function AboutMe() {
                 <MoveUpRight />
               </Button>
             </a>
+            <EmailForm />
           </div>
         </div>
       </div>
