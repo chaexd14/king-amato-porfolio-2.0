@@ -1,6 +1,3 @@
-"use server";
-
-import { Resend } from "resend";
 import { z } from "zod";
 
 const EmailSchema = z.object({
@@ -61,33 +58,41 @@ export async function sendEmail(
     if (!apiKey) {
       return {
         success: false,
+        fields: rawData,
         errors: { _form: ["API key is missing in environment variables."] },
         message: "Server configuration error.",
       };
     }
 
-    const resend = new Resend(apiKey);
-
-    const { error } = await resend.emails.send({
-      from: "King Amato <contact@kingamato.dev>",
-      to: ["kingamato0@gmail.com"],
-      subject: subject || `Portfolio Contact from ${name}`,
-      html: `
-        <h2>New Portfolio Contact</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <hr/>
-        <p>${message || "No message provided."}</p>
-      `,
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "King Amato <onboarding@resend.dev>",
+        to: ["kingamato0@gmail.com"],
+        subject: subject || `Portfolio Contact from ${name}`,
+        html: `
+          <h2>New Portfolio Contact</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <hr/>
+          <p>${message || "No message provided."}</p>
+        `,
+      }),
     });
 
-    if (error) {
-      console.error("Resend Email Error:", error);
+    const resData = await response.json();
+
+    if (!response.ok) {
+      console.error("Resend API Error:", resData);
       return {
         success: false,
         fields: rawData,
-        errors: { _form: [error.message || "Failed to send email via Resend."] },
-        message: error.message || "Failed to send email.",
+        errors: { _form: [resData.message || "Failed to send email via Resend."] },
+        message: resData.message || "Failed to send email.",
       };
     }
 
@@ -96,7 +101,7 @@ export async function sendEmail(
       message: "Thank you! Your message has been sent successfully.",
     };
   } catch (err) {
-    console.error("Server error sending email:", err);
+    console.error("Error sending email:", err);
     return {
       success: false,
       fields: rawData,
