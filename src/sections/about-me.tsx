@@ -80,8 +80,8 @@ export default function AboutMe() {
               respectReducedMotion={true}
               // required props
               onShuffleComplete={() => { }}
-              colorFrom="#111827"
-              colorTo="#0c0a09"
+              colorFrom="var(--text-muted)"
+              colorTo="var(--text-primary)"
               textAlign="left"
               loop
               loopDelay={5}
@@ -102,7 +102,7 @@ export default function AboutMe() {
               Hi! <Heart fill={isHeartClicked ? "currentColor" : "none"} />
             </Button>
             <a href="/KING-AMATO-CV.pdf" download>
-              <Button variant="outline" className="bg-middleground">
+              <Button variant="outline" className="bg-middleground hover:bg-foreground hover:text-background dark:hover:bg-foreground">
                 Read my CV
                 <MoveUpRight />
               </Button>

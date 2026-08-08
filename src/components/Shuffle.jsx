@@ -264,6 +264,9 @@ const Shuffle = ({
             } else {
               gsap.set(strips, { x: (i, t) => parseFloat(t.getAttribute('data-start-x') || '0') });
             }
+            if (colorFrom) {
+              gsap.set(strips, { color: colorFrom });
+            }
             onShuffleCompleteRef.current?.();
           },
           onComplete: () => {

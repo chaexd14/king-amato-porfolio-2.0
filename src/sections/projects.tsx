@@ -69,6 +69,7 @@ export default function Projects() {
         <Button
           onClick={handleViewMore}
           variant="outline"
+          className="hover:bg-middleground"
         >
           View More
         </Button>

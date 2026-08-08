@@ -5,6 +5,7 @@ import { ActivityCalendar, Activity } from "react-activity-calendar";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { MoveUpRight } from "lucide-react";
+import { useTheme } from "next-themes";
 
 interface GithubContributionsProps {
   username?: string;
@@ -16,11 +17,17 @@ const cache: Record<string, Activity[]> = {};
 export default function GithubContributions({
   username = "chaexd14",
 }: GithubContributionsProps) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const cacheKey = `github_contributions_${username}`;
 
   const [data, setData] = useState<Activity[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -33,7 +40,7 @@ export default function GithubContributions({
         try {
           cachedData = JSON.parse(saved);
           if (cachedData) cache[username] = cachedData;
-        } catch (e) {}
+        } catch (e) { }
       }
     }
 
@@ -74,22 +81,26 @@ export default function GithubContributions({
   }, [username]);
 
   // Custom theme matching portfolio warm monochrome design system based on :root
+
   const portfolioTheme = {
     light: [
-      "transparent", // Level 0: 0 contributions (transparent)
-      "#dcd8d0", // Level 1: Soft warm tint
-      "#a8a39a", // Level 2: Medium accent
-      "#5c5a57", // Level 3: --color-text-muted
-      "#0c0a09", // Level 4: --color-text-primary
+      "transparent", // Level 0: 0 contributions
+      "#dcd8d0",     // Level 1
+      "#a8a39a",     // Level 2
+      "#5c5a57",     // Level 3: muted text
+      "#0c0a09",     // Level 4: primary text
     ],
+
     dark: [
-      "transparent", // Level 0: 0 contributions (transparent)
-      "#525252", // Level 1
-      "#737373", // Level 2
-      "#a3a3a3", // Level 3
-      "#f5f5f5", // Level 4
+      "transparent", // Level 0: 0 contributions
+      "#2a2825",     // Level 1: subtle
+      "#5c5954",     // Level 2: medium
+      "#a6a29d",     // Level 3: muted text
+      "#f5f3f0",     // Level 4: primary text
     ],
   };
+
+  const colorScheme = mounted && resolvedTheme === "dark" ? "dark" : "light";
 
   return (
     <div className="flex flex-col gap-3 px-6 sm:px-0 w-full">
@@ -125,7 +136,7 @@ export default function GithubContributions({
           <ActivityCalendar
             data={data}
             theme={portfolioTheme}
-            colorScheme="light"
+            colorScheme={colorScheme}
             blockSize={12}
             blockMargin={3}
             blockRadius={0}

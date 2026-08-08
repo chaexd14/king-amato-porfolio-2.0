@@ -125,7 +125,7 @@ export default function EmailForm() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button variant="outline">Let's Work!</Button>} />
+      <DialogTrigger render={<Button variant="outline" className="dark:bg-background hover:bg-middleground">Let's Work!</Button>} />
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Hello There!</DialogTitle>
