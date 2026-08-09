@@ -12,7 +12,7 @@ export default function Projects() {
 
   const handleViewMore = () => {
     setVisibleCount((prev) => {
-      const nextCount = prev + 2;
+      const nextCount = prev + 10;
       cachedVisibleCount = nextCount;
       return nextCount;
     });

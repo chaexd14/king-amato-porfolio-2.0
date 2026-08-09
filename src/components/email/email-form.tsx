@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Check, Copy, Mail } from "lucide-react";
 
 const emailSchema = z
   .string()
@@ -35,10 +36,21 @@ const messageSchema = z.string().trim().optional();
 
 export default function EmailForm() {
   const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [state, formAction, isPending] = useActionState<EmailFormState | null, FormData>(
     sendEmail,
     null
   );
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("kingamato0@gmail.com");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
 
   const [formValues, setFormValues] = useState({
     subject: "",
@@ -134,6 +146,34 @@ export default function EmailForm() {
           </DialogDescription>
         </DialogHeader>
 
+        <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/40 text-xs sm:text-sm my-1 gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <Mail className="h-4 w-4 text-muted-foreground shrink-0" />
+            <span className="font-mono text-muted-foreground truncate select-all">
+              kingamato0@gmail.com
+            </span>
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="h-8 px-2.5 text-xs flex items-center gap-1.5 shrink-0"
+            onClick={handleCopyEmail}
+          >
+            {copied ? (
+              <>
+                <Check className="h-3.5 w-3.5 text-emerald-500" />
+                <span className="text-emerald-500 font-medium">Copied!</span>
+              </>
+            ) : (
+              <>
+                <Copy className="h-3.5 w-3.5" />
+                <span>Copy Email</span>
+              </>
+            )}
+          </Button>
+        </div>
+
         {state?.success ? (
           <div className="p-4 my-2 rounded-lg bg-emerald-500/10 text-emerald-500 text-sm font-medium border border-emerald-500/20 text-center flex flex-col items-center gap-2">
             <p className="font-semibold text-base font-sans">Message Sent!</p>
@@ -147,21 +187,23 @@ export default function EmailForm() {
 
             <FieldGroup>
               <FieldSet>
-                <Field data-invalid={!!errors?.subject}>
-                  <FieldLabel htmlFor="subject">Subject<span className="text-destructive">*</span></FieldLabel>
-                  <FieldContent>
-                    <Input
-                      id="subject"
-                      type="text"
-                      placeholder="Subject"
-                      name="subject"
-                      value={formValues.subject}
-                      onChange={handleChange}
-                      disabled={isPending}
-                    />
-                  </FieldContent>
-                  <FieldError errors={errors?.subject?.map((m) => ({ message: m }))} />
-                </Field>
+                <FieldGroup>
+                  <Field data-invalid={!!errors?.subject}>
+                    <FieldLabel htmlFor="subject">Subject<span className="text-destructive">*</span></FieldLabel>
+                    <FieldContent>
+                      <Input
+                        id="subject"
+                        type="text"
+                        placeholder="Subject"
+                        name="subject"
+                        value={formValues.subject}
+                        onChange={handleChange}
+                        disabled={isPending}
+                      />
+                    </FieldContent>
+                    <FieldError errors={errors?.subject?.map((m) => ({ message: m }))} />
+                  </Field>
+                </FieldGroup>
 
                 <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Field data-invalid={!!errors?.name}>
