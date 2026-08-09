@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react";
 import ProjectCard from '@/components/common/project-card'
-
+import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 
 // Module-level variable to retain expanded count during SPA page transitions
@@ -52,17 +52,28 @@ export default function Projects() {
   ]
 
   return (
-    <div className="flex flex-col gap-3 px-6 sm:px-0">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex flex-col gap-3 px-6 sm:px-0"
+    >
       <h3 className="text-text-muted border-b border-border pb-2 text-sm">
         Projects
       </h3>
 
-      <div className='grid grid-cols1 lg:grid-cols-2 gap-3'>
-        {project.slice(0, visibleCount).map((project) => (
-          <ProjectCard
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+        {project.slice(0, visibleCount).map((project, index) => (
+          <motion.div
             key={project.title}
-            {...project}
-          />
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: index * 0.08 }}
+          >
+            <ProjectCard {...project} />
+          </motion.div>
         ))}
       </div>
       {visibleCount < project.length && (
@@ -74,8 +85,6 @@ export default function Projects() {
           View More
         </Button>
       )}
-
-
-    </div>
+    </motion.div>
   )
 }

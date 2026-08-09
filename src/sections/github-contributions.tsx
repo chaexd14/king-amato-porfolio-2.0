@@ -6,6 +6,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { MoveUpRight } from "lucide-react";
 import { useTheme } from "next-themes";
+import { motion } from "motion/react";
 
 interface GithubContributionsProps {
   username?: string;
@@ -103,7 +104,13 @@ export default function GithubContributions({
   const colorScheme = mounted && resolvedTheme === "dark" ? "dark" : "light";
 
   return (
-    <div className="flex flex-col gap-3 px-6 sm:px-0 w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex flex-col gap-3 px-6 sm:px-0 w-full"
+    >
       <header className="flex items-center border-b border-border pb-2 justify-between w-full pt-3 sm:px-0">
         <h3 className="text-text-muted text-sm">
           GitHub Contributions
@@ -150,6 +157,6 @@ export default function GithubContributions({
           />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

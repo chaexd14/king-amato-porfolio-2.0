@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { motion } from "motion/react";
 import {
   Accordion,
   AccordionContent,
@@ -43,7 +46,13 @@ export default function Experiences() {
   ];
 
   return (
-    <div className="flex flex-col gap-2 px-6 sm:px-0">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex flex-col gap-2 px-6 sm:px-0"
+    >
       <h3 className="text-text-muted border-b border-border pb-2 text-sm">
         Experiences
       </h3>
@@ -86,6 +95,6 @@ export default function Experiences() {
           </AccordionItem>
         ))}
       </Accordion>
-    </div>
+    </motion.div>
   );
 }

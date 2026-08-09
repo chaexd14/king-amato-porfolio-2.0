@@ -1,10 +1,13 @@
+"use client";
+
 import React from 'react'
 import TechStackCard from '@/components/common/tech-stack-card'
 import Link from 'next/link'
 import { MoveLeft } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
+import { motion } from 'motion/react'
 
-export default function page() {
+export default function Page() {
   const techStack = [
     {
       title: "Frontend",
@@ -27,7 +30,12 @@ export default function page() {
     }
   ]
   return (
-    <section className="flex flex-col gap-10 w-full px-6 sm:px-0">
+    <motion.section
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex flex-col gap-10 w-full px-6 sm:px-0"
+    >
       <div className='flex flex-col gap-2'>
         <header className="flex items-center justify-between w-full pt-3 sm:px-0">
           <h3 className="text-sm font-semibold">
@@ -49,15 +57,21 @@ export default function page() {
       </div>
 
       <div className='flex flex-col gap-8'>
-        {techStack.map((item) => (
-          <TechStackCard
+        {techStack.map((item, index) => (
+          <motion.div
             key={item.title}
-            title={item.title}
-            description={item.description}
-          />
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: index * 0.08 }}
+          >
+            <TechStackCard
+              title={item.title}
+              description={item.description}
+            />
+          </motion.div>
         ))}
-
       </div>
-    </section>
+    </motion.section>
   )
 }

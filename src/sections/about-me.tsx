@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Shuffle from "@/components/Shuffle";
 import { MoveUpRight } from "lucide-react";
 import { Heart } from "lucide-react";
+import { motion } from "motion/react";
 
 import EmailForm from "@/components/email/email-form";
 import SnakeGameModal from "@/components/snake-game-modal";
@@ -57,7 +58,12 @@ export default function AboutMe() {
   };
 
   return (
-    <div className="w-full px-6 sm:px-0">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="w-full px-6 sm:px-0"
+    >
       <div className="flex flex-col md:flex-row items-stretch justify-center gap-4 pt-[18px]">
         <div className="shrink-0 flex items-center justify-center">
           {isGif ? (
@@ -147,7 +153,7 @@ export default function AboutMe() {
         isOpen={isSnakeGameOpen}
         onClose={() => setIsSnakeGameOpen(false)}
       />
-    </div>
+    </motion.div>
   );
 }
 
