@@ -566,7 +566,7 @@ export default function SnakeGameModal({ isOpen, onClose }: SnakeGameModalProps)
                 <Button
                   variant="outline"
                   onClick={onClose}
-                  className="bg-middleground hover:bg-foreground text-foreground border-border py-2.5 px-4 rounded-xl cursor-pointer"
+                  className="bg-middleground hover:bg-foreground hover:text-background dark:hover:bg-foreground"
                 >
                   Close
                 </Button>
