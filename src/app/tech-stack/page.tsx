@@ -34,7 +34,7 @@ export default function Page() {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="flex flex-col gap-10 w-full px-6 sm:px-0"
+      className="flex flex-col gap-4 sm:gap-10 w-full px-6 sm:px-0"
     >
       <div className='flex flex-col gap-2'>
         <header className="flex items-center justify-between w-full pt-3 sm:px-0">
@@ -56,7 +56,7 @@ export default function Page() {
         <p className='text-text-muted text-sm leading-6'>Here's a glimpse of the technologies I've worked with. Each stack represents a different area of development, from building interactive user interfaces to creating robust backend systems.</p>
       </div>
 
-      <div className='flex flex-col gap-8'>
+      <div className='flex flex-col gap-6 sm:gap-8'>
         {techStack.map((item, index) => (
           <motion.div
             key={item.title}
@@ -72,6 +72,8 @@ export default function Page() {
           </motion.div>
         ))}
       </div>
+
+      <div className='h-8 sm:h-0' />
     </motion.section>
   )
 }

@@ -81,23 +81,21 @@ export default function GithubContributions({
     };
   }, [username]);
 
-  // Custom theme matching portfolio warm monochrome design system based on :root
-
+  // Custom theme derived dynamically from the CSS design system (--primary)
   const portfolioTheme = {
     light: [
-      "transparent", // Level 0: 0 contributions
-      "#dcd8d0",     // Level 1
-      "#a8a39a",     // Level 2
-      "#5c5a57",     // Level 3: muted text
-      "#0c0a09",     // Level 4: primary text
+      "transparent",
+      "color-mix(in srgb, var(--primary) 20%, transparent)",
+      "color-mix(in srgb, var(--primary) 45%, transparent)",
+      "color-mix(in srgb, var(--primary) 70%, transparent)",
+      "var(--primary)",
     ],
-
     dark: [
-      "transparent", // Level 0: 0 contributions
-      "#2a2825",     // Level 1: subtle
-      "#5c5954",     // Level 2: medium
-      "#a6a29d",     // Level 3: muted text
-      "#f5f3f0",     // Level 4: primary text
+      "transparent",
+      "color-mix(in srgb, var(--primary) 20%, transparent)",
+      "color-mix(in srgb, var(--primary) 45%, transparent)",
+      "color-mix(in srgb, var(--primary) 70%, transparent)",
+      "var(--primary)",
     ],
   };
 
