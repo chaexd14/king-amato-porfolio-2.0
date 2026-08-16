@@ -26,6 +26,12 @@ export default function Projects() {
       image: "/spendlyy_bg.webp",
     },
     {
+      title: "Habi",
+      description: "Helps users organize schedules, manage tasks, set goals, and build better habits to stay productive and consistent",
+      task: ["Schedule Management", "Task Tracking", "Goal Setting"],
+      image: "/habi_bg.webp",
+    },
+    {
       title: "My Schedule",
       description: "Helps users organize schedules, manage events, and plan daily tasks. Designed to make staying organized simple and efficient",
       task: ["sample1", "sample2", "sample3"],
