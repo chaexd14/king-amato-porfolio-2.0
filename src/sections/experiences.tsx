@@ -56,7 +56,7 @@ export default function Experiences() {
       <h3 className="text-text-muted border-b border-border pb-2 text-sm">
         Experiences
       </h3>
-      <Accordion defaultValue={["item-1"]}>
+      <Accordion defaultValue={[experienceList[0].title]}>
         {experienceList.map((experience) => (
           <AccordionItem key={experience.title} value={experience.title}>
             <AccordionTrigger>
